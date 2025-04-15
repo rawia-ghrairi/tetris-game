@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Bar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300&display=swap" rel="stylesheet"> 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: #383838;
+        }
+
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-flow: column;
+            height: 100vh;
+        }
+
+        h2 {
+            color: #00ff0d;
+            font-size: 40px;
+            font-weight: 300;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #00ff0d;
+            animation: glow 5s ease forwards;
+        }
+
+        div.progressBar {
+            width: 350px;
+            height: 2px;
+            background-color: #fff;
+            position: relative;
+            margin-bottom: 20%;
+        }
+
+        div.progressBar span {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            background-color: #00ff0d;
+            filter: drop-shadow(0 0 10px #00ff0d);
+            animation: loading 5s ease forwards;
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0%;
+            }
+
+            20% {
+                width: 50%;
+            }
+
+            80% {
+                width: 90%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes glow {
+            0%,95% {
+                text-shadow: none;
+            }
+
+            100% {
+                text-shadow: 0 0 10px #00ff0d;
+            }
+            
+        }
+    </style> 
+</head>
+<body>
+    
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Koulen&family=Lato&family=Nunito&family=Playfair+Display:ital@1&family=Prata&family=Raleway:ital,wght@1,100&family=Roboto&family=Roboto+Condensed&family=Teko&display=swap');
+    
+    .btn{
+    
+    font-family: Roboto, sans-serif;
+    font-weight: 0;
+    font-size: 14px;
+    color: #fff;
+    background-color: seagreen;
+    padding: 10px 30px;
+    border: 2px solid seagreen;
+    box-shadow: rgb(0, 0, 0) 0px 0px 0px 0px;
+    border-radius: 50px;
+    transition : 1000ms;
+    transform: translateY(0);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    margin-top: 3%;
+    margin-left: 25%;
+    }
+    
+    .btn:hover{
+    
+    transition : 1000ms;
+    padding: 10px 50px;
+    transform : translateY(-0px);
+    background-color: #fff;
+    color: seagreen;
+    border: solid 2px seagreen;
+    }
+
+    ul {
+            list-style: none;
+            height: 60px;
+            overflow: hidden;
+        }
+
+        ul li {
+            color: #fff;
+            font-size: 50px;
+            line-height: 60px;
+            position: relative;
+            top: 0;
+            margin: 0;
+            animation: scrolling 8s steps(4) infinite;
+        }
+
+        ul li:nth-child(1) { color: #75f80a; }
+
+        ul li:nth-child(2) { color: #f8610a; }
+
+        ul li:nth-child(3) { color: #f8f40a; }
+
+        ul li:nth-child(4) { color: #15b5ff; }
+
+        ul li::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            background-color: #383838;
+            border-left: 2px solid #fff;
+            animation: typing 2s steps(10) infinite;
+        }
+
+        @keyframes typing {
+            100% {
+                left: 100%;
+                margin: 0 -35px 0 35px;
+            }
+        }
+
+        @keyframes scrolling {
+            100% {
+                top: -240px;
+            }
+        }
+    
+    </style>
+    
+    
+    
+    
+    <section>
+        <section>
+            <ul>
+                <li>Hello  You!</li>
+                <li>Ready To Play?</li>
+                <li>Welcome to</li>
+                <li>Tetris Game!</li>
+            </ul>
+        </section>
+        <h2>Loading...</h2>
+        <div class="progressBar">
+            <button class="btn" onclick="gotomainpage()" >start the game!</button>
+            <span></span>
+        </div>
+    </section>
+    <script src="tetris.js"></script>
+</body>
+
+</html>

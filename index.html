@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TETRIS - JS</title>
+    <style>
+
+
+section {
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 25%;
+            height: 50vh;
+            padding-top: 30%;
+        }
+
+        .profile {
+            width: 160px;
+            height: 160px;
+            background-color: #fff;
+            border-radius: 100%;
+            border: #c5c5c5 solid 5px;
+            perspective: 600px;
+        }
+
+        .profile img {
+            position: absolute;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 100%;
+            transform-origin: right center;
+            transition: 0.5s all ease-in-out;
+        }
+
+        .profile:hover img {
+            transform: rotateY(180deg);
+        }
+
+        .profile .info {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-flow: column;
+        }
+
+        .profile .info h2 {
+            font-size: 22px;
+            margin-bottom: 0;
+            color: #ff5e00;
+        }
+
+        .profile .info p {
+            font-size: 15px;
+            color: #292929;
+        }
+        
+
+
+      
+         
+
+         body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            display:flex;
+           zoom: 90%;
+        }
+        
+        
+        /* Create the animated background */
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #87CEEB, #ADD8E6, #B0E0E6, #87CEEB);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .game-container {
+            position: relative;
+            width: 400px;
+            height: 800px;
+            margin: 50px auto;
+            border: 8px solid teal;
+            border-radius: 8px;
+            outline: 4px solid #000;
+        }
+
+        #nextShapeCanvas, #scoreCanvas {
+            position: absolute;
+            top: 10px;
+            border: 8px solid teal;
+            border-radius: 8px;
+            outline: 4px solid #000;
+        }
+
+        #nextShapeCanvas {
+            left: 420px;
+        }
+
+        #scoreCanvas {
+            left: 640px;
+            background: #000;
+        }
+       
+        .button-container {
+            position: absolute;
+            top: 300px;
+            right: 108px;
+            border: 8px solid teal;
+            border-radius: 8px;
+            outline: 4px solid #000;
+            background: #fff;
+            padding: 20px; /* Adjust padding for button size */
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Adjust gap between buttons */
+            margin-right: 30%;
+            margin-top: 1%;
+            width: 250px;
+            height: 500px;
+            
+        }
+        button{
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    margin: 10px;
+    width: 90%;
+    height:40px ;
+    background-color: teal;
+    color: #EEEEEE;
+    font-weight:700 ;
+    letter-spacing: 1px;
+    font-size: 30px;
+}
+
+
+
+button:hover{
+    background-color: #062e3e;
+}
+
+            .button-container button {
+                padding: 15px 30px; /* Adjust padding for button size */
+                font-size: 18px; /* Adjust font size */
+            }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: blanchedalmond;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid teal;
+            width: 35%;
+            height: 30%;
+            text-align: center;
+            font-size: large;
+            font-style: normal;
+        }
+       
+        .close {
+            color: teal;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+            
+   option{
+    font-size: 20px;
+   }
+   select{
+    width: 250px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 15px;
+    border-color: black;
+   }
+
+   .subcribe{
+    margin-left: 15%;
+    padding-left: 15%;
+   }
+   
+    </style>
+</head>
+
+<body>
+
+    
+
+    
+    
+        
+    
+
+    <div id="rulesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRulesModal()">&times;</span>
+            <h2>Rules of the Game</h2>
+                               <p><b>Arrow Left / Arrow Right :</b> Move Left / Move Right </p>
+                               <p><b>Arrow Down :</b> Move Down</p>
+                                <p><b>Arrow Up :</b>Rotate </p>                       
+                                    <p><b> ESPACE : </b>SHOW / HIDE NEXT PIECE</p>
+                   
+            </div>
+        </div>
+
+    <div class="background"></div>
+
+    <div class="game-container">
+        
+        <canvas id="canvas" width="400" height="800"></canvas>
+        <canvas id="nextShapeCanvas" width="200" height="200"></canvas>
+        <br>
+        <canvas id="scoreCanvas" width="200" height="200"></canvas>
+        <img src="blocks.png" alt="" id="image" style="display: none;" />
+    </div>
+
+    <div class="button-container">
+        
+            
+       
+        <button  id="startButton">Start</button>
+        <button  id="pauseButton">Pause/Continue</button>
+        <button  id="restartButton">Restart</button>
+        <button  id="subscribeButton" onclick="goToAnotherPage()">Subscribe</button>
+        <button id="aboutthegameButton" onclick="openRulesModal()">About the game</button>
+        <label for="difficultySelect" style="font-size: 25px ; font-style: oblique;"><b>choose level: </b></label>
+        <select id="difficultySelect">
+            <option value="easy" >Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+        </select>
+    </div>
+   <div > <form action="" class="hidden-form menu-form">
+        <label>User name</label><br><br>
+         <input type="text" placeholder="Username" /><br><br>
+         <label>Password</label><br><br>
+         <input type="password" placeholder="Password" />
+         <button >login</button>
+     </form></div>
+    <!-- Modal content here... -->
+    <div id="rulesModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRulesModal()">&times;</span>
+            <h2 style="font-style: oblique;">Rules of the Game</h2>
+                               <p><b>Arrow Left / Arrow Right :</b> Move Left / Move Right </p>
+                               <p><b>Arrow Down :</b> Move Down</p>
+                                <p><b>Arrow Up :</b>Rotate </p>                       
+                                    <p><b> ESPACE : </b>SHOW / HIDE NEXT PIECE</p>
+                   
+            </div>
+        </div>
+
+      
+        <section>
+
+            <div class="profile">
+                
+
+                <img src="Capture d'écran 2023-12-28 181852.png"  alt="">
+                <div class="info">
+                    <h2 style="color: #ff5e00; font-style: oblique; ">Israa & Rawiaa</h2>
+                    
+                </div>
+            </div>
+            
+        </section>
+
+       
+    <script src="tetris.js"></script>
+ 
+</body>
+</html>
